@@ -3,6 +3,7 @@
 name: Run script to notify if there's a game on
 
 on:
+  workflow_dispatch
   # Triggers the workflow every day at 7 am UTC
   schedule:
     - cron: "0 7 * * *"
@@ -21,10 +22,21 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
+        
+    - name: 'Create env file'
+        run: |
+          touch .env
+          echo X_RapidAPI_Host=${{ secrets.X_RapidAPI_Host }} >> .env
+          echo X_RapidAPI_Key=${{ secrets.X_RapidAPI_Key }}  >> .env
+          echo telegram_token=${{ secrets.telegram_token }}  >> .env
+          echo chat_ids=${{ secrets.chat_ids }}  >> .env
+          cat .env
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+    
+    - name: Run script
       run: |
-        python app.py
+        python main.py
