@@ -12,8 +12,6 @@ on:
         description: 'Do you really want to manually trigger this pipeline?'
         type: boolean
         required: true
-        default: 'warning' 
-  
 
 permissions:
   contents: read
@@ -31,7 +29,7 @@ jobs:
         python-version: "3.10"
         
     - name: 'Create env file'
-        run: |
+      run: |
           touch .env
           echo X_RapidAPI_Host=${{ secrets.X_RapidAPI_Host }} >> .env
           echo X_RapidAPI_Key=${{ secrets.X_RapidAPI_Key }}  >> .env
