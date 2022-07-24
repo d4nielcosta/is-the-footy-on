@@ -13,7 +13,7 @@ load_dotenv()
 X_RapidAPI_Key = os.getenv("X_RapidAPI_Key")
 X_RapidAPI_Host = os.getenv("X_RapidAPI_Host")
 telegram_token = os.getenv("telegram_token")
-telegram_chat_ids = json.loads(os.getenv("chat_ids"))
+telegram_chat_ids = json.loads(os.getenv("danny_chat_ids"))
 
 # FOOTBALL API DETAILS
 football_api_url = 'https://' + X_RapidAPI_Host + '/v3/fixtures'
@@ -29,7 +29,7 @@ telegram_url = "https://api.telegram.org/bot" + telegram_token
 
 def fetch_results():
     r = requests.request("GET", football_api_url, headers=football_api_url_headers, params={'date': datetime.today().strftime('%Y-%m-%d')})
-    print('football api response status:', r.status_code)
+    print('Football API response status:', r.status_code)
     return r.json()
     
 
@@ -45,6 +45,7 @@ def find_glasgow_events(events):
         if (entry['fixture']['venue']['city']) == 'Glasgow':
             matched_events.append(entry)
 
+    print('Number of events in Glasgow:', len(matched_events))
     return matched_events
 
 def convert_timestamp(timestamp):
@@ -68,11 +69,11 @@ def send_notifications(events):
 
         for chatId in telegram_chat_ids:
             r = requests.post(telegram_url + '/sendMessage', params={"chat_id": chatId}, json={'text': message, 'parse_mode': 'HTML'})
-            print('telegram response status:', r.status_code)
+            print('Telegram response status:', r.status_code, "for chat ending in", str(chatId)[-3:], "- event", event['fixture']['id'])
 
 def main():
-    events = fetch_results()
-    # events = fake_fetch_results()
+    # events = fetch_results()
+    events = fake_fetch_results()
 
     glasgow_events = find_glasgow_events(events)
 
