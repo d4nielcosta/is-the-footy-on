@@ -28,8 +28,9 @@ telegram_url = "https://api.telegram.org/bot" + telegram_token
 
 
 def fetch_results():
-    response = requests.request("GET", football_api_url, headers=football_api_url_headers, params={'date': datetime.today().strftime('%Y-%m-%d')})
-    return response.json()
+    r = requests.request("GET", football_api_url, headers=football_api_url_headers, params={'date': datetime.today().strftime('%Y-%m-%d')})
+    print('football api response status:', r.status_code)
+    return r.json()
     
 
 def fake_fetch_results():
@@ -67,7 +68,7 @@ def send_notifications(events):
 
         for chatId in telegram_chat_ids:
             r = requests.post(telegram_url + '/sendMessage', params={"chat_id": chatId}, json={'text': message, 'parse_mode': 'HTML'})
-            print(r.status_code, r.json())
+            print('telegram response status:', r.status_code)
 
 def main():
     events = fetch_results()
@@ -77,5 +78,7 @@ def main():
 
     send_notifications(glasgow_events)
 
-if __name__ == "__main__":    
+if __name__ == "__main__":  
+    print("Starting run...")  
     main()
+    print("Finished")  
