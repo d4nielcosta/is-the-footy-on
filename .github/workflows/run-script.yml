@@ -6,7 +6,13 @@ on:
   # Triggers the workflow every day at 7 am UTC
   schedule:
     - cron: "0 7 * * *"
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      confirmBox:
+        description: 'Do you really want to manually trigger this pipeline?'
+        type: boolean
+        required: true
+        default: 'warning' 
   
 
 permissions:
