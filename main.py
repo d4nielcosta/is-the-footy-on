@@ -13,7 +13,7 @@ load_dotenv()
 X_RapidAPI_Key = os.getenv("X_RapidAPI_Key")
 X_RapidAPI_Host = os.getenv("X_RapidAPI_Host")
 telegram_token = os.getenv("telegram_token")
-telegram_chat_ids = json.loads(os.getenv("danny_chat_ids"))
+telegram_chat_ids = json.loads(os.getenv("chat_ids"))
 
 # FOOTBALL API DETAILS
 football_api_url = 'https://' + X_RapidAPI_Host + '/v3/fixtures'
@@ -72,8 +72,8 @@ def send_notifications(events):
             print('Telegram response status:', r.status_code, "for chat ending in", str(chatId)[-3:], "- event", event['fixture']['id'])
 
 def main():
-    # events = fetch_results()
-    events = fake_fetch_results()
+    events = fetch_results()
+    # events = fake_fetch_results()
 
     glasgow_events = find_glasgow_events(events)
 
