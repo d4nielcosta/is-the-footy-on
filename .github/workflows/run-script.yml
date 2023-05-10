@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies, and run the script
 
-name: Run script to notify if there's a game on
+name: Game on notification workflow
 
 on:
   # Triggers the workflow every day at 7 am UTC

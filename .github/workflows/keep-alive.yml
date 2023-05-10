@@ -1,4 +1,4 @@
-name: Keep Alive Action with a cronjob trigger
+name: Keep alive workflow
 on:
   schedule:
     - cron: "0 0 * * *"
