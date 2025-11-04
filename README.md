@@ -8,4 +8,4 @@ This project is not mantained. This was developed as a quick solution for a car 
 
 Feel free to adapt the project for your own personal projects. For any commercial applications contact me beforehand.
 
-If you have questions give me a shout. 
+If you have questions give me a shout.
